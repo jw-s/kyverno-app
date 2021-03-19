@@ -1,10 +1,10 @@
 apiVersion: v1
 appVersion: 0.0.1
-description: A Helm chart for {APP-NAME}
+description: A Helm chart for kyverno
 engine: gotpl
-home: https://github.com/giantswarm/{APP-NAME}-app
+home: https://github.com/giantswarm/kyverno-app
 icon: https://some.domain.com/logo.png
-name: {APP-NAME}
+name: kyverno
 sources:
 - https://github.com/some-org/some-repo
 version: [[ .Version ]]
