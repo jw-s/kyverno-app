@@ -9,7 +9,6 @@ podSecurityPolicies: []
 # Supported values- `audit`, `enforce`
 # For more info- https://kyverno.io/docs/writing-policies/validate/
 validationFailureAction: audit
-
 rbac:
   create: true
   serviceAccount:
@@ -17,11 +16,9 @@ rbac:
     name:
     annotations: {}
     #   example.com/annotation: value
-
 project:
   branch: "[[ .Branch ]]"
   commit: "[[ .SHA ]]"
-
 image:
   registry: quay.io
   repository: giantswarm/kyverno
@@ -38,43 +35,32 @@ initImage:
   # If initImage.pullPolicy is missing, defaults to image.pullPolicy
   pullPolicy:
   # No pull secrets just for initImage; just add to image.pullSecrets
-
 replicaCount: 1
-
 podLabels: {}
 #   example.com/label: foo
-
 podAnnotations: {}
 #   example.com/annotation: foo
-
 podSecurityContext: {}
-
 affinity: {}
 nodeSelector: {}
 tolerations: []
-
 # change hostNetwork to true when you want the kyverno's pod to share its host's network namespace
 # useful for situations like when you end up dealing with a custom CNI over Amazon EKS
 # update the 'dnsPolicy' accordingly as well to suit the host network mode
 hostNetwork: false
-
 # dnsPolicy determines the manner in which DNS resolution happens in the cluster
 # in case of hostNetwork: true, usually, the dnsPolicy is suitable to be "ClusterFirstWithHostNet"
 # for further reference: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy
 dnsPolicy: "ClusterFirst"
-
 envVars: {}
-
 extraArgs: []
 # - --webhooktimeout=4
-
 resources:
   limits:
     memory: 256Mi
   requests:
     cpu: 100m
     memory: 50Mi
-
 ## Liveness Probe. The block is directly forwarded into the deployment, so you can use whatever livenessProbe configuration you want.
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
 ##
@@ -88,7 +74,6 @@ livenessProbe:
   timeoutSeconds: 5
   failureThreshold: 2
   successThreshold: 1
-
 ## Readiness Probe. The block is directly forwarded into the deployment, so you can use whatever readinessProbe configuration you want.
 ## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
 ##
@@ -102,13 +87,11 @@ readinessProbe:
   timeoutSeconds: 5
   failureThreshold: 6
   successThreshold: 1
-
 # TODO(mbarrien): Should we just list all resources for the
 # generatecontroller in here rather than having defaults hard-coded?
 generatecontrollerExtraResources:
 # - ResourceA
 # - ResourceB
-
 config:
   # resource types to be skipped by kyverno policy engine
   # Make sure to surround each entry in quotes so that it doesn't get parsed
@@ -134,7 +117,6 @@ config:
   excludeUsername:
 #  - ""
   # existingConfig: init-config
-
 service:
   port: 443
   type: ClusterIP
@@ -145,7 +127,6 @@ service:
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer
   ##
   annotations: {}
-
 # Kyverno requires a certificate key pair and corresponding certificate authority
 # to properly register its webhooks. This can be done in one of 3 ways:
 # 1) Use kube-controller-manager to generate a CA-signed certificate (preferred)
@@ -157,4 +138,3 @@ service:
 # 3) Let Helm generate a self signed cert, by setting createSelfSignedCert true
 # If letting Kyverno create its own CA or providing your own, make createSelfSignedCert is false
 createSelfSignedCert: false
-
