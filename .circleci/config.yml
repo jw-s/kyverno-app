@@ -9,10 +9,10 @@ workflows:
           context: "architect"
           # executor: "app-build-suite" # uncomment this if you want automatic metadata generation
           name: "package and push kyverno chart"
-          app_catalog: "control-plane-catalog"
+          app_catalog: "control-plane-test-catalog"
           app_catalog_test: "control-plane-test-catalog"
           chart: "kyverno"
           # Trigger job on git tag.
-          filters:
-            tags:
-              only: /^v.*/
+#           filters:
+#             tags:
+#               only: /^v.*/
