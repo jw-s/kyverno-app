@@ -1,5 +1,5 @@
 nameOverride:
-fullnameOverride:
+fullnameOverride: kyverno
 namespace:
 # Supported- default/restricted/privileged/custom
 # For more info- https://kyverno.io/policies/pod-security
