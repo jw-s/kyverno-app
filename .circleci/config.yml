@@ -11,7 +11,7 @@ workflows:
           name: "package and push kyverno chart"
           app_catalog: "control-plane-test-catalog"
           app_catalog_test: "control-plane-test-catalog"
-          chart: "kyverno"
+          chart: "kyverno-app"
           # Trigger job on git tag.
 #           filters:
 #             tags:
