@@ -3,7 +3,7 @@ fullnameOverride: kyverno
 namespace:
 # Supported- default/restricted/privileged/custom
 # For more info- https://kyverno.io/policies/pod-security
-podSecurityStandard: default
+podSecurityStandard: custom
 # Policies to include when podSecurityStandard is custom
 podSecurityPolicies: []
 # Supported values- `audit`, `enforce`
