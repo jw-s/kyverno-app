@@ -23,7 +23,7 @@ image:
   # registry: quay.io
   repository: ghcr.io/kyverno/kyverno
   # Defaults to appVersion in Chart.yaml if omitted
-  tag: v1.3.4-44-gc08843ef
+  tag: v1.3.4-33-g9a99cc3a
   pullPolicy: IfNotPresent
   pullSecrets: []
   # - secretName
@@ -31,7 +31,7 @@ initImage:
   # registry: quay.io
   repository: ghcr.io/kyverno/kyvernopre
   # If initImage.tag is missing, defaults to image.tag
-  tag: v1.3.4-44-gc08843ef
+  tag: v1.3.4-33-g9a99cc3a
   # If initImage.pullPolicy is missing, defaults to image.pullPolicy
   pullPolicy:
   # No pull secrets just for initImage; just add to image.pullSecrets
