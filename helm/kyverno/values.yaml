@@ -20,18 +20,16 @@ project:
   branch: "[[ .Branch ]]"
   commit: "[[ .SHA ]]"
 image:
-  # registry: quay.io
-  repository: ghcr.io/kyverno/kyverno
+  repository: quay.io/giantswarm/kyverno
   # Defaults to appVersion in Chart.yaml if omitted
-  tag: v1.3.4-33-g9a99cc3a
+  tag: v1.3.5
   pullPolicy: IfNotPresent
   pullSecrets: []
   # - secretName
 initImage:
-  # registry: quay.io
-  repository: ghcr.io/kyverno/kyvernopre
+  repository: ghcr.io/giantswarm/kyvernopre
   # If initImage.tag is missing, defaults to image.tag
-  tag: v1.3.4-33-g9a99cc3a
+  tag: v1.3.5
   # If initImage.pullPolicy is missing, defaults to image.pullPolicy
   pullPolicy:
   # No pull secrets just for initImage; just add to image.pullSecrets
