@@ -27,7 +27,7 @@ image:
   pullSecrets: []
   # - secretName
 initImage:
-  repository: ghcr.io/giantswarm/kyvernopre
+  repository: quay.io/giantswarm/kyvernopre
   # If initImage.tag is missing, defaults to image.tag
   tag: v1.3.5
   # If initImage.pullPolicy is missing, defaults to image.pullPolicy
