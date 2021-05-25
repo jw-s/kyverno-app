@@ -22,14 +22,14 @@ project:
 image:
   repository: quay.io/giantswarm/kyverno
   # Defaults to appVersion in Chart.yaml if omitted
-  tag: v1.3.5
+  tag: v1.3.6
   pullPolicy: IfNotPresent
   pullSecrets: []
   # - secretName
 initImage:
   repository: quay.io/giantswarm/kyvernopre
   # If initImage.tag is missing, defaults to image.tag
-  tag: v1.3.5
+  tag: v1.3.6
   # If initImage.pullPolicy is missing, defaults to image.pullPolicy
   pullPolicy:
   # No pull secrets just for initImage; just add to image.pullSecrets
