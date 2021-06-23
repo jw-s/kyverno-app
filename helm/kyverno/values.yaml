@@ -42,7 +42,7 @@ initImage:
   pullPolicy:
   # No pull secrets just for initImage; just add to image.pullSecrets
 
-replicaCount: 1
+replicaCount: 3
 podLabels: {}
 #   example.com/label: foo
 podAnnotations: {}
