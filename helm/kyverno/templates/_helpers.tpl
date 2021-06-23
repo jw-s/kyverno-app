@@ -28,35 +28,18 @@ If release name contains chart name it will be used as a full name.
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
-{{/*
-Common labels
-*/}}
-{{- define "labels.common" -}}
-{{ include "labels.selector" . }}
-app.kubernetes.io/name: {{ .Values.name }}
-app.kubernetes.io/instance: {{ .Release.Name | quote }}
-app.giantswarm.io/branch: {{ .Values.project.branch | replace "#" "-" | replace "/" "-" | replace "." "-" | trunc 63 | trimSuffix "-" | quote }}
-app.giantswarm.io/commit: {{ .Values.project.commit | quote }}
-app.kubernetes.io/managed-by: {{ .Release.Service | quote }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-helm.sh/chart: {{ include "chart" . | quote }}
-giantswarm.io/service-type: {{ .Values.serviceType }}
-{{- end -}}
-
-{{/*
-Selector labels
-*/}}
-{{- define "labels.selector" -}}
-app.kubernetes.io/name: {{ include "name" . | quote }}
-app.kubernetes.io/instance: {{ .Release.Name | quote }}
-{{- end -}}
-
 {{/* Helm required labels */}}
 {{- define "kyverno.labels" -}}
-app.kubernetes.io/name: {{ template "kyverno.name" . }}
-helm.sh/chart: {{ template "kyverno.chart" . }}
+app.kubernetes.io/component: kyverno
 app.kubernetes.io/instance: {{ .Release.Name }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
+app.kubernetes.io/name: {{ template "kyverno.name" . }}
+app.kubernetes.io/part-of: {{ template "kyverno.name" . }}
+app.kubernetes.io/version: "{{ .Chart.Version }}"
+helm.sh/chart: {{ template "kyverno.chart" . }}
+{{- if .Values.customLabels }}
+{{ toYaml .Values.customLabels | indent 4 }}
+{{- end }}
 {{- end -}}
 
 {{/* matchLabels */}}
