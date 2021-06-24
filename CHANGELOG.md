@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0] - 2021-06-24
+
 ### Changed
 
 - Enable high availability (3 replicas).
@@ -27,7 +29,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [0.0.1] - 2021-03-19
 
-[Unreleased]: https://github.com/giantswarm/kyverno-app/compare/v0.0.5...HEAD
+[Unreleased]: https://github.com/giantswarm/kyverno-app/compare/v0.1.0...HEAD
+[0.1.0]: https://github.com/giantswarm/kyverno-app/compare/v0.0.5...v0.1.0
 [0.0.5]: https://github.com/giantswarm/kyverno-app/compare/v0.0.4...v0.0.5
 [0.0.4]: https://github.com/giantswarm/kyverno-app/compare/v0.0.3...v0.0.4
 [0.0.3]: https://github.com/giantswarm/kyverno-app/compare/v0.0.2...v0.0.3
