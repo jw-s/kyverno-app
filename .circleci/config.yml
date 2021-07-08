@@ -18,19 +18,6 @@ workflows:
               only: /^v.*/
 
       - architect/push-to-app-collection:
-          name: shared-app-collection
-          context: "architect"
-          app_name: "kyverno"
-          app_collection_repo: "shared-app-collection"
-          requires:
-            - push-kyverno-chart-to-control-plane-catalog
-          filters:
-            branches:
-              ignore: /.*/
-            tags:
-              only: /^v.*/
-
-      - architect/push-to-app-collection:
           name: aws-app-collection
           context: "architect"
           app_name: "kyverno"
