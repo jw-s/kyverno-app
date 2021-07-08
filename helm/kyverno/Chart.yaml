@@ -1,7 +1,7 @@
 apiVersion: v1
 name: kyverno
 version: [[ .Version ]]
-appVersion: v1.3.6
+appVersion: v1.4.1
 icon: https://github.com/kyverno/kyverno/raw/main/img/logo.png
 description: A Helm chart for kyverno
 home: https://github.com/giantswarm/kyverno-app
