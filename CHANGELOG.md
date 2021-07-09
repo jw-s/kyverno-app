@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Add annotation which sets `ludacris` as app owner.
+
 ## [0.3.0] - 2021-07-09
 
 ### Added

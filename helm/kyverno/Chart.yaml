@@ -7,4 +7,5 @@ description: A Helm chart for kyverno
 home: https://github.com/giantswarm/kyverno-app
 engine: gotpl
 annotations:
+  application.giantswarm.io/team: "ludacris"
   config.giantswarm.io/version: 1.x.x
