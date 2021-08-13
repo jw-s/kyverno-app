@@ -7,7 +7,8 @@ metadata:
     {{- include "labels.common" . | nindent 4 }}
 spec:
   endpoints:
-  - port: web
+  - honorLabels: true
+    port: 8000
     metricRelabelings:
     - action: "labeldrop"
       regex: "(user.*)"
