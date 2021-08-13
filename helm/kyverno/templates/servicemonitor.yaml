@@ -2,9 +2,9 @@ apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: kyverno-sm
-  namespace: {{ .Values.namespace }}
-  labels:
-    {{- include "labels.common" . | nindent 4 }}
+  namespace: {{ template "kyverno.namespace" . }}
+  labels: {{ include "kyverno.labels" . | nindent 4 }}
+    app: kyverno
 spec:
   endpoints:
   - honorLabels: true
@@ -13,8 +13,8 @@ spec:
     - action: "labeldrop"
       regex: "(user.*)"
   selector:
-    matchLabels:
-      {{- include "labels.selector" . | nindent 6 }}
+    matchLabels: {{ include "kyverno.matchLabels" . | nindent 6 }}
+      app: kyverno
   namespaceSelector:
     matchNames:
-      - {{ .Values.namespace }}
+      - {{ template "kyverno.namespace" . }}
