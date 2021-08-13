@@ -1,7 +1,7 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: {{ include "resource.default.name" . }}
+  name: kyverno-sm
   namespace: {{ .Values.namespace }}
   labels:
     {{- include "labels.common" . | nindent 4 }}
