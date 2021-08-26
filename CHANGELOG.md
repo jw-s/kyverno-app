@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add annotation which sets `ludacris` as app owner.
 - Allow ingress on port 8000 for scraping metrics.
 - Add ServiceMonitor for metrics to be scraped.
+- Push `kyverno` to `giantswarm` catalog.
 
 ## [0.3.0] - 2021-07-09
 

@@ -17,6 +17,17 @@ workflows:
             tags:
               only: /^v.*/
 
+      - architect/push-to-app-catalog:
+          context: "architect"
+          name: push-kyverno-chart-to-giantswarm-catalog
+          app_catalog: "giantswarm-catalog"
+          app_catalog_test: "giantswarm-test-catalog"
+          chart: "kyverno"
+          # Trigger job on git tag.
+          filters:
+            tags:
+              only: /^v.*/
+
       - architect/push-to-app-collection:
           name: aws-app-collection
           context: "architect"
