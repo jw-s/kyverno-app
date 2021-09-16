@@ -1,0 +1,20 @@
+{{- if or .Values.plugins.kyverno .Values.global.plugins.kyverno -}}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: {{ include "monitoring.fullname" . }}-kyverno-plugin
+  {{ if .Values.serviceMonitor.namespace }}
+  namespace: {{ .Values.serviceMonitor.namespace }}
+  {{ end }}
+  labels:
+    {{- with .Values.serviceMonitor.labels }}
+        {{- toYaml . | nindent 4 }}
+    {{- end }}
+    {{- include "monitoring.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+        {{- include "kyvernoplugin.selectorLabels" . | nindent 8 }}
+  endpoints:
+  - port: http
+{{- end }}

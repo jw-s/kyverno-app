@@ -179,3 +179,43 @@ serviceMonitor:
 # 3) Let Helm generate a self signed cert, by setting createSelfSignedCert true
 # If letting Kyverno create its own CA or providing your own, make createSelfSignedCert is false
 createSelfSignedCert: false
+
+# Additional options defined in charts/policy-reporter/values.yaml. Upstream docs: https://github.com/kyverno/policy-reporter
+policy-reporter:
+  resources:
+    limits:
+      cpu: 15m
+      memory: 50Mi
+    requests:
+      cpu: 5m
+      memory: 30Mi
+
+  ui:
+    enabled: true
+    plugins:
+      kyverno: true
+    resources:
+      limits:
+        cpu: 10m
+        memory: 16Mi
+      requests:
+        cpu: 1m
+        memory: 8Mi
+
+  kyvernoPlugin:
+    enabled: true
+    resources:
+      limits:
+        cpu: 10m
+        memory: 30Mi
+      requests:
+        cpu: 1m
+        memory: 15Mi
+
+  global:
+    plugins:
+      kyverno: true
+
+  monitoring:
+    enabled: true
+    namespace: monitoring

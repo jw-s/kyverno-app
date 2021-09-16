@@ -1,0 +1,74 @@
+# monitoring namespace for Dashboard Configurations
+namespace: cattle-dashboards
+
+plugins:
+  kyverno: false
+
+serviceMonitor:
+  # allow to override the namespace for serviceMonitor  
+  namespace:
+  # labels to match the serviceMonitorSelector of the Prometheus Resource
+  labels: {}
+
+grafana:
+  # namespace for configMap of grafana dashboards
+  namespace:
+  dashboards:
+    # Label to find dashboards using the k8s sidecar
+    label: grafana_dashboard
+  folder:
+    # Annotation to enable folder storage using the k8s sidecar
+    annotation: grafana_folder
+    # Grafana folder in which to store the dashboards
+    name: Policy Reporter
+
+policyReportDetails:
+  firstStatusRow:
+    height: 8
+  secondStatusRow:
+    enabled: true
+    height: 2
+  statusTimeline:
+    enabled: true
+    height: 8
+  passTable:
+    enabled: true
+    height: 8
+  failTable:
+    enabled: true
+    height: 8
+  warningTable:
+    enabled: true
+    height: 4
+  errorTable:
+    enabled: true
+    height: 4
+
+clusterPolicyReportDetails:
+  statusRow:
+    height: 6
+  statusTimeline:
+    enabled: true
+    height: 8
+  passTable:
+    enabled: true
+    height: 8
+  failTable:
+    enabled: true
+    height: 8
+  warningTable:
+    enabled: true
+    height: 4
+  errorTable:
+    enabled: true
+    height: 4
+
+policyReportOverview:
+  failingSummaryRow:
+    height: 8
+  failingTimeline:
+    height: 10
+  failingPolicyRuleTable:
+    height: 10
+  failingClusterPolicyRuleTable:
+    height: 10

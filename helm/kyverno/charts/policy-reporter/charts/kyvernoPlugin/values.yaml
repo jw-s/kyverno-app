@@ -1,0 +1,88 @@
+image:
+  repository: fjogeleit/policy-reporter-kyverno-plugin
+  pullPolicy: IfNotPresent
+  tag: 0.3.2
+
+imagePullSecrets: []
+
+# Deploy not more than one replica
+# Policy Reporter doesn't scale yet.
+# Each pod will report each change.
+replicaCount: 1
+
+deploymentStrategy: {}
+  # rollingUpdate:
+  #  maxSurge: 25%
+  #  maxUnavailable: 25%
+  # type: RollingUpdate
+
+# Key/value pairs that are attached to Deployment.
+annotations: {}
+
+# Create cluster role policies
+rbac:
+  enabled: true
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+service:
+  enabled: true
+  ## configuration of service
+  # key/value
+  annotations: {}
+  # key/value
+  labels: {}
+  type: ClusterIP
+
+securityContext:
+  runAsUser: 1234
+  runAsNonRoot: true
+  privileged: false
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop:
+      - all
+
+# Key/value pairs that are attached to pods.
+podAnnotations: {}
+
+# Key/value pairs that are attached to pods.
+podLabels: {}
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #   memory: 30Mi
+  #   cpu: 10m
+  # requests:
+  #   memory: 20Mi
+  #   cpu: 5m
+
+# Node labels for pod assignment
+# ref: https://kubernetes.io/docs/user-guide/node-selection/
+nodeSelector: {}
+
+# Tolerations for pod assignment
+# ref: https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/
+tolerations: []
+
+# Anti-affinity to disallow deploying client and master nodes on the same worker node
+affinity: {}
+
+# Enable a NetworkPolicy for this chart. Useful on clusters where Network Policies are
+# used and configured in a default-deny fashion.
+networkPolicy:
+  enabled: false
+  kubernetesApiPort: 6443
+  egress: []
