@@ -182,6 +182,9 @@ createSelfSignedCert: false
 
 # Additional options defined in charts/policy-reporter/values.yaml. Upstream docs: https://github.com/kyverno/policy-reporter
 policy-reporter:
+  image:
+    repository: quay.io/giantswarm/policy-reporter
+    tag: 1.8.6
   resources:
     limits:
       cpu: 15m
@@ -192,6 +195,9 @@ policy-reporter:
 
   ui:
     enabled: true
+    image:
+      repository: quay.io/giantswarm/policy-reporter-ui
+      tag: 0.14.0
     plugins:
       kyverno: true
     resources:
@@ -204,6 +210,9 @@ policy-reporter:
 
   kyvernoPlugin:
     enabled: true
+    image:
+      repository: quay.io/giantswarm/policy-reporter-kyverno-plugin
+      tag: 0.3.2
     resources:
       limits:
         cpu: 10m
