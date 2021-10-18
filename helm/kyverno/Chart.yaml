@@ -2,7 +2,7 @@ apiVersion: v2
 name: kyverno
 version: [[ .Version ]]
 appVersion: v1.4.1
-icon: https://github.com/kyverno/kyverno/raw/main/img/logo.png
+icon: https://s.giantswarm.io/app-icons/kyverno/1/light.svg
 description: A Helm chart for kyverno
 home: https://github.com/giantswarm/kyverno-app
 engine: gotpl

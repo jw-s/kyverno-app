@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Change icon URL to an SVG from our own server
+
 ## [0.6.1] - 2021-09-16
 
 ### Changed
