@@ -37,7 +37,7 @@ image:
 initImage:
   repository: quay.io/giantswarm/kyvernopre
   # If initImage.tag is missing, defaults to image.tag
-  tag: v1.4.1
+  tag: v1.5.0
   # If initImage.pullPolicy is missing, defaults to image.pullPolicy
   pullPolicy:
   # No pull secrets just for initImage; just add to image.pullSecrets
