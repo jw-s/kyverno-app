@@ -98,3 +98,23 @@ app.kubernetes.io/instance: {{ .Release.Name }}
 {{- false }}
 {{- end -}}
 {{- end -}}
+
+
+{{- define "kyverno.crdInstall" -}}
+{{- printf "%s-%s" ( include "kyverno.name" . ) "crd-install" | replace "+" "_" | trimSuffix "-" -}}
+{{- end -}}
+
+{{- define "kyverno.CRDInstallAnnotations" -}}
+"helm.sh/hook": "pre-install,pre-upgrade"
+"helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded,hook-failed"
+{{- end -}}
+
+{{- define "kyverno.selectorLabels" -}}
+app.kubernetes.io/name: "{{ template "kyverno.name" . }}"
+app.kubernetes.io/instance: "{{ template "kyverno.name" . }}"
+{{- end -}}
+
+{{/* Create a label which can be used to select any orphaned crd-install hook resources */}}
+{{- define "kyverno.CRDInstallSelector" -}}
+{{- printf "%s" "crd-install-hook" -}}
+{{- end -}}

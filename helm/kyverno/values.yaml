@@ -1,3 +1,7 @@
+crds:
+  install: true
+
+
 nameOverride:
 fullnameOverride: kyverno
 namespace:
@@ -27,6 +31,7 @@ project:
   commit: "[[ .SHA ]]"
 
 image:
+  registry: quay.io
   repository: quay.io/giantswarm/kyverno
   # Defaults to appVersion in Chart.yaml if omitted
   tag: v1.5.0
