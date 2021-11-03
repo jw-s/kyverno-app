@@ -7,7 +7,7 @@ description: A Helm chart for kyverno
 home: https://github.com/giantswarm/kyverno-app
 engine: gotpl
 annotations:
-  application.giantswarm.io/team: "ludacris"
+  application.giantswarm.io/team: team-honeybadger
   config.giantswarm.io/version: 1.x.x
 dependencies:
   - name: policy-reporter
