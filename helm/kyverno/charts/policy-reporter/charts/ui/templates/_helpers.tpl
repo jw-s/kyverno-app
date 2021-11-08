@@ -74,10 +74,14 @@ Create the name of the service account to use
 {{- end }}
 
 {{- define "ui.policyReportServiceName" -}}
-{{- $name := .Chart.Name }}
-{{- if .Values.global.fullnameOverride }}
-{{- .Values.global.fullnameOverride }}
-{{- else }}
+{{- $name := "policy-reporter" }}
+{{- if .Values.global.backend }}
 {{- .Values.global.backend }}
+{{- else if .Values.global.fullnameOverride }}
+{{- .Values.global.fullnameOverride }}
+{{- else if contains $name .Release.Name }}
+{{- .Release.Name | trunc 63 | trimSuffix "-" }}
+{{- else }}
+{{- printf "%s-%s" .Release.Name $name | trunc 63 | trimSuffix "-" }}
 {{- end }}
 {{- end }}

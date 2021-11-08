@@ -1,199 +1,54 @@
-crds:
-  install: true
-
-
-nameOverride:
-fullnameOverride: kyverno
-namespace:
-# Supported- default/restricted/privileged/custom
-# For more info- https://kyverno.io/policies/pod-security
-podSecurityStandard: custom
-# Supported- low/medium/high
-podSecuritySeverity: medium
-# Policies to include when podSecurityStandard is custom
-podSecurityPolicies: []
-# Supported values- `audit`, `enforce`
-# For more info- https://kyverno.io/docs/writing-policies/validate/
-validationFailureAction: audit
-
-# -- Additional labels
-customLabels: {}
-
-rbac:
-  create: true
-  serviceAccount:
-    create: true
-    name:
-    annotations: {}
-
 project:
   branch: "[[ .Branch ]]"
   commit: "[[ .SHA ]]"
 
+crds:
+  install: true
+
 image:
   registry: quay.io
-  repository: quay.io/giantswarm/kyverno
-  # Defaults to appVersion in Chart.yaml if omitted
-  tag: v1.5.0
-  pullPolicy: IfNotPresent
-  pullSecrets: []
-  # - secretName
 
-initImage:
-  repository: quay.io/giantswarm/kyvernopre
-  # If initImage.tag is missing, defaults to image.tag
-  tag: v1.5.0
-  # If initImage.pullPolicy is missing, defaults to image.pullPolicy
-  pullPolicy:
-  # No pull secrets just for initImage; just add to image.pullSecrets
+kyverno:
+  installCRDs: false
+  fullnameOverride: kyverno
+  image:
+    repository: quay.io/giantswarm/kyverno
+    # Defaults to appVersion in Chart.yaml if omitted
+    tag: v1.5.0
+    pullPolicy: IfNotPresent
+  initImage:
+    repository: quay.io/giantswarm/kyvernopre
+    tag: v1.5.0
+  replicaCount: 3
+  resources:
+    limits:
+      memory: 1024Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+  initResources:
+    limits:
+      cpu: 100m
+      memory: 256Mi
+    requests:
+      cpu: 10m
+      memory: 64Mi
+  metricsService:
+    create: true
+    type: ClusterIP
+    ## Kyverno's metrics server will be exposed at this port
+    port: 8000
 
-replicaCount: 3
-podLabels: {}
-#   example.com/label: foo
-podAnnotations: {}
-#   example.com/annotation: foo
-podSecurityContext: {}
-affinity: {}
-nodeSelector: {}
-tolerations: []
-
-# change hostNetwork to true when you want the kyverno's pod to share its host's network namespace
-# useful for situations like when you end up dealing with a custom CNI over Amazon EKS
-# update the 'dnsPolicy' accordingly as well to suit the host network mode
-hostNetwork: false
-
-# dnsPolicy determines the manner in which DNS resolution happens in the cluster
-# in case of hostNetwork: true, usually, the dnsPolicy is suitable to be "ClusterFirstWithHostNet"
-# for further reference: https://kubernetes.io/docs/concepts/services-networking/dns-pod-service/#pod-s-dns-policy
-dnsPolicy: "ClusterFirst"
-envVars: {}
-extraArgs: []
-resources:
-  limits:
-    memory: 1024Mi
-  requests:
-    cpu: 100m
-    memory: 256Mi
-
-initResources:
-  limits:
-    cpu: 100m
-    memory: 256Mi
-  requests:
-    cpu: 10m
-    memory: 64Mi
-
-verticalPodAutoscaler:
-  enabled: false
-
-## Liveness Probe. The block is directly forwarded into the deployment, so you can use whatever livenessProbe configuration you want.
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
-##
-livenessProbe:
-  httpGet:
-    path: /health/liveness
-    port: 9443
-    scheme: HTTPS
-  initialDelaySeconds: 10
-  periodSeconds: 10
-  timeoutSeconds: 5
-  failureThreshold: 2
-  successThreshold: 1
-
-## Readiness Probe. The block is directly forwarded into the deployment, so you can use whatever readinessProbe configuration you want.
-## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/
-##
-readinessProbe:
-  httpGet:
-    path: /health/readiness
-    port: 9443
-    scheme: HTTPS
-  initialDelaySeconds: 5
-  periodSeconds: 10
-  timeoutSeconds: 5
-  failureThreshold: 6
-  successThreshold: 1
-
-# TODO(mbarrien): Should we just list all resources for the
-# generatecontroller in here rather than having defaults hard-coded?
-generatecontrollerExtraResources:
-# - ResourceA
-# - ResourceB
-
-config:
-  # resource types to be skipped by kyverno policy engine
-  # Make sure to surround each entry in quotes so that it doesn't get parsed
-  # as a nested YAML list. These are joined together without spaces in the configmap
-  resourceFilters:
-  - "[Event,*,*]"
-  - "[*,kube-system,*]"
-  - "[*,kube-public,*]"
-  - "[*,kube-node-lease,*]"
-  - "[Node,*,*]"
-  - "[APIService,*,*]"
-  - "[TokenReview,*,*]"
-  - "[SubjectAccessReview,*,*]"
-  - "[*,kyverno,*]"
-  - "[Binding,*,*]"
-  - "[ReplicaSet,*,*]"
-  - "[ReportChangeRequest,*,*]"
-  - "[ClusterReportChangeRequest,*,*]"
-  # Or give the name of an existing config map (ignores default/provided resourceFilters)
-  existingConfig: ''
-  excludeGroupRole:
-#  - ""
-  excludeUsername:
-#  - ""
-  # existingConfig: init-config
-service:
-  port: 443
-  type: ClusterIP
-  # Only used if service.type is NodePort
-  nodePort:
-  ## Provide any additional annotations which may be required. This can be used to
-  ## set the LoadBalancer service type to internal only.
-  ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer
-  ##
-  annotations: {}
-
-metricsService:
-  create: true
-  type: ClusterIP
-  ## Kyverno's metrics server will be exposed at this port
-  port: 8000
-  ## The Node's port which will allow access Kyverno's metrics at the host level. Only used if service.type is NodePort.
-  nodePort:
-  ## Provide any additional annotations which may be required. This can be used to
-  ## set the LoadBalancer service type to internal only.
-  ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer
-  ##
-  annotations: {}
-
-# Service Monitor to collect Prometheus Metrics
-serviceMonitor:
-  enabled: false
-
-# Kyverno requires a certificate key pair and corresponding certificate authority
-# to properly register its webhooks. This can be done in one of 3 ways:
-# 1) Use kube-controller-manager to generate a CA-signed certificate (preferred)
-# 2) Provide your own CA and cert.
-#    In this case, you will need to create a certificate with a specific name and data structure.
-#    As long as you follow the naming scheme, it will be automatically picked up.
-#    kyverno-svc.(namespace).svc.kyverno-tls-ca (with data entry named rootCA.crt)
-#    kyverno-svc.kyverno.svc.kyverno-tls-pair (with data entries named tls.key and tls.crt)
-# 3) Let Helm generate a self signed cert, by setting createSelfSignedCert true
-# If letting Kyverno create its own CA or providing your own, make createSelfSignedCert is false
-createSelfSignedCert: false
 
 # Additional options defined in charts/policy-reporter/values.yaml. Upstream docs: https://github.com/kyverno/policy-reporter
 policy-reporter:
   image:
-    repository: quay.io/giantswarm/policy-reporter
-    tag: 1.10.1
+    registry: quay.io
+    repository: giantswarm/policy-reporter
   resources:
     limits:
       cpu: 15m
-      memory: 50Mi
+      memory: 100Mi
     requests:
       cpu: 5m
       memory: 30Mi
@@ -201,8 +56,8 @@ policy-reporter:
   ui:
     enabled: true
     image:
-      repository: quay.io/giantswarm/policy-reporter-ui
-      tag: 0.15.0
+      registry: quay.io
+      repository: giantswarm/policy-reporter-ui
     plugins:
       kyverno: true
     resources:
@@ -216,8 +71,8 @@ policy-reporter:
   kyvernoPlugin:
     enabled: true
     image:
-      repository: quay.io/giantswarm/policy-reporter-kyverno-plugin
-      tag: 0.3.2
+      registry: quay.io
+      repository: giantswarm/policy-reporter-kyverno-plugin
     resources:
       limits:
         cpu: 10m

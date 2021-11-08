@@ -1,7 +1,8 @@
 image:
-  repository: fjogeleit/policy-reporter
+  registry: ghcr.io
+  repository: kyverno/policy-reporter
   pullPolicy: IfNotPresent
-  tag: 1.8.6
+  tag: 1.10.2
 
 imagePullSecrets: []
 
@@ -40,7 +41,7 @@ service:
   # key/value
   labels: {}
   type: ClusterIP
-  # integer nubmer. This is port for service
+  # integer number. This is port for service
   port: 2112
 
 securityContext:
@@ -94,12 +95,12 @@ monitoring:
     labels: {}
 
 global:
-  # availale plugins
+  # available plugins
   plugins:
     # enable kyverno for Policy Reporter UI and monitoring
     keyverno: false
-  # The name of service policy-report. If you changed ReleaseName you have to replace it
-  backend: policy-reporter
+  # The name of service policy-report. Defaults to ReleaseName.
+  backend: ""
   # Service Port number
   port: 8080
   fullnameOverride: ""
@@ -127,6 +128,14 @@ policyPriorities:
   #   require-ns-labels: error
   mapping: {}
 
+# Reference a configuration which already exists instead of creating one
+existingTargetConfig:
+  enabled: false
+  # Name of the secret with the config
+  name: ""
+  # subPath within the secret (defaults to config.yaml)
+  subPath: ""
+
 # Supported targets for new PolicyReport Results
 target:
   loki:
@@ -143,7 +152,7 @@ target:
     # elasticsearch index (default: policy-reporter)
     index: ""
     # elasticsearch index rotation and index suffix
-    # possible values: dayli, monthly, annually, none (default: dayli)
+    # possible values: daily, monthly, annually, none (default: daily)
     rotation: ""
     # minimum priority "" < info < warning < critical < error
     minimumPriority: ""
@@ -181,6 +190,16 @@ target:
     minimumPriority: "warning"
     # Skip already existing PolicyReportResults on startup
     skipExistingOnStartup: true
+
+  yandex:
+    accessKeyID: ""  # yandex access key
+    secretAccessKey: ""  # yandex secret access key
+    region: ""  # yandex storage region (default: ru-central-1)
+    endpoint: ""  # yandex storage endpoint (default: https://storage.yandexcloud.net)
+    bucket: ""  # Yandex storage, bucket name
+    prefix: ""  # name of prefix, keys will have format: s3://<bucket>/<prefix>/YYYY-MM-DD/YYYY-MM-DDTHH:mm:ss.s+01:00.json
+    minimumPriority: ""   # minimum priority "" < info < warning < critical < error
+    skipExistingOnStartup: true  # Skip already existing PolicyReportResults on startup
 
 # Node labels for pod assignment
 # ref: https://kubernetes.io/docs/user-guide/node-selection/
