@@ -2,23 +2,26 @@ project:
   branch: "[[ .Branch ]]"
   commit: "[[ .SHA ]]"
 
+# We install CRDs through a Job with the helm specific crd folder.
 crds:
   install: true
 
 image:
   registry: quay.io
 
+# Additional options defined in charts/kyverno/values.yaml. Upstream docs: https://github.com/kyverno/kyverno
 kyverno:
+  # We do not want Kyverno to install these CRDs.
+  # Kyverno managed them through helm templates which clashes with chart-operator.
   installCRDs: false
   fullnameOverride: kyverno
   image:
     repository: quay.io/giantswarm/kyverno
-    # Defaults to appVersion in Chart.yaml if omitted
-    tag: v1.5.0
+    tag: v1.5.1
     pullPolicy: IfNotPresent
   initImage:
     repository: quay.io/giantswarm/kyvernopre
-    tag: v1.5.0
+    tag: v1.5.1
   replicaCount: 3
   resources:
     limits:
@@ -36,9 +39,7 @@ kyverno:
   metricsService:
     create: true
     type: ClusterIP
-    ## Kyverno's metrics server will be exposed at this port
     port: 8000
-
 
 # Additional options defined in charts/policy-reporter/values.yaml. Upstream docs: https://github.com/kyverno/policy-reporter
 policy-reporter:
