@@ -14,20 +14,6 @@ metadata:
     role: {{ include "kyverno-stack.CRDInstallSelector" . | quote }}
 rules:
 - apiGroups:
-  - "wgpolicyk8s.io"
-  resources:
-  - policyreports
-  verbs:
-  - "list"
-  - "get"
-  - "delete"
-- apiGroups:
-  - "apps"
-  resources:
-  - deployments
-  verbs:
-  - "delete"
-- apiGroups:
   - ""
   resources:
   - jobs

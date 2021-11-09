@@ -35,11 +35,6 @@ spec:
         - |
           set -o errexit ; set -o xtrace ; set -o nounset
 
-          # Temporary fix to work around selector changes
-          kubectl -n {{ .Release.Namespace }} delete deployment kyverno 2>&1
-          # Temporary fix to clean up broken policyreports after ETCD incident
-          kubectl delete policyreports.wgpolicyk8s.io -A --all 2>&1
-
           # piping stderr to stdout means kubectl's errors are surfaced
           # in the pod's logs.
 
