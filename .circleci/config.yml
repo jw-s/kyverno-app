@@ -68,6 +68,19 @@ workflows:
               only: /^v.*/
 
       - architect/push-to-app-collection:
+          name: openstack-app-collection
+          context: "architect"
+          app_name: "kyverno"
+          app_collection_repo: "openstack-app-collection"
+          requires:
+            - push-kyverno-chart-to-control-plane-catalog
+          filters:
+            branches:
+              ignore: /.*/
+            tags:
+              only: /^v.*/
+
+      - architect/push-to-app-collection:
           name: vmware-app-collection
           context: "architect"
           app_name: "kyverno"
