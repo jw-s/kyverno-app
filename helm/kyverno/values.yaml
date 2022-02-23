@@ -22,6 +22,8 @@ kyverno:
   initImage:
     repository: quay.io/giantswarm/kyvernopre
     tag: v1.5.1
+  podDisruptionBudget:
+    minAvailable:
   replicaCount: 3
   resources:
     limits:
