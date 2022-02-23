@@ -8,8 +8,8 @@ dependencies:
     version: 1.12.5
   - name: kyverno
     version: v2.3.0
-  - name: kyverno-policies
-    version: v2.3.0
+  # - name: kyverno-policies
+  #   version: v2.3.0
 description: |
   Kyverno is a policy engine designed for Kubernetes. It can validate, mutate,
   and generate configurations using admission controls and background scans.
