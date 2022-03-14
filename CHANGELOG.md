@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Enable Pod Disruption Budget by default
+
 ## [0.8.1] - 2022-02-18
 
 - make PDB version conditional based on available API

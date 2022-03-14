@@ -40,6 +40,9 @@ kyverno:
     create: true
     type: ClusterIP
     port: 8000
+  podDisruptionBudget:
+    enabled: true
+    minAvailable: 1
 
 # Additional options defined in charts/policy-reporter/values.yaml. Upstream docs: https://github.com/kyverno/policy-reporter
 policy-reporter:
