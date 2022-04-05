@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- Break `kyverno-policies` chart into its own [separate app](https://github.com/giantswarm/kyverno-policies).
+- Change `kyverno` chart to a subtree tracking the upstream [`kyverno` chart](https://github.com/kyverno/kyverno/tree/main/charts/kyverno).
+
 ## [0.9.1] - 2022-03-14
 
 ### Fixed
