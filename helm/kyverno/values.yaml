@@ -40,7 +40,7 @@ kyverno:
     port: 8000
   podDisruptionBudget:
     maxUnavailable: 1
-    minAvailable: null
+    minAvailable: ""
 
 # Additional options defined in charts/policy-reporter/values.yaml. Upstream docs: https://github.com/kyverno/policy-reporter
 policy-reporter:
