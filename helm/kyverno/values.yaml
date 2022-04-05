@@ -17,11 +17,9 @@ kyverno:
   fullnameOverride: kyverno
   image:
     repository: quay.io/giantswarm/kyverno
-    # tag: v1.5.1
     pullPolicy: IfNotPresent
   initImage:
     repository: quay.io/giantswarm/kyvernopre
-    # tag: v1.5.1
   replicaCount: 3
   resources:
     limits:
@@ -41,8 +39,7 @@ kyverno:
     type: ClusterIP
     port: 8000
   podDisruptionBudget:
-    enabled: false
-    maxUnavailable: null
+    maxUnavailable: 1
     minAvailable: null
 
 # Additional options defined in charts/policy-reporter/values.yaml. Upstream docs: https://github.com/kyverno/policy-reporter

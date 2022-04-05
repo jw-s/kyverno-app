@@ -69,7 +69,7 @@ podAffinity: {}
 nodeAffinity: {}
 
 podDisruptionBudget:
-  # minAvailable: 1
+  minAvailable: 1
   # maxUnavailable: 1
 
   # minAvailable and maxUnavailable can either be set to an integer (e.g. 1)
